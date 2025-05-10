@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HunterRPG.Managers;
 
 namespace HunterRPG.Models
 {
@@ -22,6 +23,16 @@ namespace HunterRPG.Models
             Energy = 100;
             Hunger = 0;
             Inventory = new List<Item>();
+        }
+
+        public bool IsAlive => Health > 0;
+
+        public void Rest()
+        {
+            Health = Math.Min(Health + 20, 100);
+            Energy = Math.Min(Energy + 50, 100);
+            Hunger = Math.Min(Hunger + 15, 100);
+            UserInterface.DisplayMessage($"You rested. Health: {Health}, Energy: {Energy}, Hunger: {Hunger}");
         }
     }
 }
