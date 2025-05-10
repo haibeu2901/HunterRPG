@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HunterRPG.Enums;
+using HunterRPG.Managers;
 using HunterRPG.Utils;
 
 namespace HunterRPG.Models
@@ -72,7 +73,7 @@ namespace HunterRPG.Models
         public void TakeDamage(int damage)
         {
             Health = Math.Max(Health - damage, 0);
-
+            UserInterface.DisplayMessage($"{Name} took {damage} damage. Health: {Health}");
         }
     }
 }
