@@ -214,5 +214,19 @@ namespace HunterRPG.Managers
                     break;
             }
         }
+
+        private void Move(string direction)
+        {
+            if (hunter.CurrentLocation.Connections.ContainsKey(direction))
+            {
+                hunter.CurrentLocation = hunter.CurrentLocation.Connections[direction];
+                hunter.UseEnergy(10);
+                UserInterface.DisplayMessage($"You moved {direction} to {hunter.CurrentLocation.Name}.");
+            }
+            else
+            {
+                UserInterface.DisplayMessage($"You cannot go {direction} from here.");
+            }
+        }
     }
 }
