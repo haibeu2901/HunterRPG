@@ -310,5 +310,44 @@ namespace HunterRPG.Managers
 
             hunter.Eat(item);
         }
+
+        private void RespawnAnimals()
+        {
+            foreach (var location in gameWorld)
+            {
+                // Clear existing animals
+                location.Animals.Clear();
+
+                // Respawn based on location type
+                switch (location.Type)
+                {
+                    case LocationType.Forest:
+                        location.AddAnimal(new Animal("Deer", AnimalType.Deer, 30, 5));
+                        location.AddAnimal(new Animal("Rabbit", AnimalType.Rabbit, 10, 2));
+                        break;
+                    case LocationType.Clearing:
+                        location.AddAnimal(new Animal("Deer", AnimalType.Deer, 30, 5));
+                        location.AddAnimal(new Animal("Wolf", AnimalType.Wolf, 40, 15));
+                        break;
+                    case LocationType.Cave:
+                        location.AddAnimal(new Animal("Bear", AnimalType.Bear, 70, 25));
+                        break;
+                    case LocationType.River:
+                        location.AddAnimal(new Animal("Wolf", AnimalType.Wolf, 40, 15));
+                        break;
+                }
+
+                // Respawn items
+                if (location.Type == LocationType.River && !location.Items.Any(i => i.Name == "Fishing Rod"))
+                {
+                    location.AddItem(new Item("Fishing Rod", ItemType.Tool, 10));
+                }
+
+                if (location.Type == LocationType.Clearing && !location.Items.Any(i => i.Name == "Berries"))
+                {
+                    location.AddItem(new Item("Berries", ItemType.Food, 10));
+                }
+            }
+        }
     }
 }
