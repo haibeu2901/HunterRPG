@@ -51,5 +51,12 @@ namespace HunterRPG.Models
             }
         }
 
+        public void AddItem(Item item)
+        {
+            Inventory.Add(item);
+            UserInterface.DisplayMessage($"You acquired {item.Name}!");
+        }
+
+
     }
 }
