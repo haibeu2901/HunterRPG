@@ -66,7 +66,7 @@ namespace HunterRPG.Models
         public void UseEnergy(int amount)
         {
             Energy = Math.Max(Energy - amount, 0);
-            Hunger = Math.Max(Hunger + amount / 2, 100);
+            Hunger = Math.Min(Hunger + amount / 2, 100);
         }
 
         public void DisplayStatus()
