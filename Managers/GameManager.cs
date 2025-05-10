@@ -297,6 +297,18 @@ namespace HunterRPG.Managers
             hunter.CurrentLocation.RemoveItem(item);
         }
 
-        
+        private void Eat(string itemName)
+        {
+            var item = hunter.Inventory.FirstOrDefault(i =>
+                i.Name.ToLower() == itemName.ToLower());
+
+            if (item == null)
+            {
+                UserInterface.DisplayMessage($"You don't have {itemName} in your inventory.");
+                return;
+            }
+
+            hunter.Eat(item);
+        }
     }
 }
