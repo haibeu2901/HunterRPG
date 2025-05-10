@@ -51,8 +51,8 @@ dotnet run
 3. **Actions**:
    - `hunt [animal name]` - Hunt an animal in your current location
    - `gather [item name]` - Collect an item from your current location
-   - `rest` - Recover energy (increases hunger)
-   - `eat [food name]` - Consume food to reduce hunger
+   - `rest` - Recover health & energy (increases hunger)
+   - `eat [food name]` - Consume food to reduce hunger and gain some health
    - `quit` - Exit the game
 
 ## 📋 Game Tips
