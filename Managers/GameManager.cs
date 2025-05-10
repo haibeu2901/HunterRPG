@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HunterRPG.Enums;
 using HunterRPG.Models;
+using HunterRPG.Utils;
 
 namespace HunterRPG.Managers
 {
@@ -226,6 +227,54 @@ namespace HunterRPG.Managers
             else
             {
                 UserInterface.DisplayMessage($"You cannot go {direction} from here.");
+            }
+        }
+
+        private void Hunt(string animalName)
+        {
+            var animal = hunter.CurrentLocation.Animals.FirstOrDefault(a =>
+                a.Name.ToLower() == animalName.ToLower());
+
+            if (animal == null) 
+            {
+                UserInterface.DisplayMessage($"There is no {animalName} here to hunt.");
+                return;
+            }
+
+            UserInterface.DisplayMessage($"You begin hunting the {animal.Name}...");
+            // Hunting requires energy
+            hunter.UseEnergy(20);
+
+            // Simple combat system
+            while (animal.IsAlive && hunter.IsAlive)
+            {
+                // Player attacks
+                int hunterDamage = RandomGenerator.GetRandomNumber(10, 25);
+                animal.TakeDamage(hunterDamage);
+
+                // Animal attacks if still alive
+                if (animal.IsAlive)
+                {
+                    int animalDamage = animal.Attack();
+                    hunter.TakeDamage(animalDamage);
+                }
+            }
+
+            if (animal.IsAlive)
+            {
+                UserInterface.DisplayMessage("You were defeated by the animal and had to retreat.");
+            }
+            else
+            {
+                UserInterface.DisplayMessage($"You successfully hunted the {animal.Name}!");
+                // Collect drops
+                foreach (var item in animal.Drops)
+                {
+                    hunter.AddItem(item);
+                }
+
+                // Remove animal from location
+                hunter.CurrentLocation.RemoveAnimal(animal);
             }
         }
     }

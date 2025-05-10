@@ -63,7 +63,7 @@ namespace HunterRPG.Models
             }
         }
 
-        public bool IsAlive() => Health > 0;
+        public bool IsAlive => Health > 0;
 
         public int Attack()
         {
