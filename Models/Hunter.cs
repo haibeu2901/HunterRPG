@@ -57,6 +57,10 @@ namespace HunterRPG.Models
             UserInterface.DisplayMessage($"You acquired {item.Name}!");
         }
 
-
+        public void UseEnergy(int amount)
+        {
+            Energy = Math.Max(Energy - amount, 0);
+            Hunger = Math.Max(Hunger + amount / 2, 100);
+        }
     }
 }
