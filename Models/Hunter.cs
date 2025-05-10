@@ -62,5 +62,26 @@ namespace HunterRPG.Models
             Energy = Math.Max(Energy - amount, 0);
             Hunger = Math.Max(Hunger + amount / 2, 100);
         }
+
+        public void DisplayStatus()
+        {
+            UserInterface.DisplayMessage($"Name: {Name}");
+            UserInterface.DisplayMessage($"Health: {Health}/100");
+            UserInterface.DisplayMessage($"Energy: {Energy}/100");
+            UserInterface.DisplayMessage($"Hunger: {Hunger}/100");
+            UserInterface.DisplayMessage($"Location: {CurrentLocation.Name}");
+            UserInterface.DisplayMessage("Inventory:");
+            if (Inventory.Count == 0)
+            {
+                UserInterface.DisplayMessage("Empty");
+            }
+            else
+            {
+                foreach (var item in Inventory)
+                {
+                    UserInterface.DisplayMessage($"  {item.Name} ({item.Type})");
+                }
+            }
+        }
     }
 }
