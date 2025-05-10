@@ -13,6 +13,15 @@ namespace HunterRPG.Models
         public int Energy { get; set; }
         public int Hunger { get; set; }
         public List<Item> Inventory { get; set; }
-        
+        public Location CurrentLocation { get; set; }
+
+        public Hunter(string name)
+        {
+            Name = name;
+            Health = 100;
+            Energy = 100;
+            Hunger = 0;
+            Inventory = new List<Item>();
+        }
     }
 }
