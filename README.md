@@ -30,7 +30,7 @@ git clone https://github.com/haibeu2901/HunterRPG.git
 
 2. Navigate to the project directory
 ```bash
-cd hunter-rpg
+cd HunterRPG
 ```
 
 3. Build the project
