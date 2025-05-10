@@ -14,7 +14,7 @@ namespace HunterRPG.Managers
             return Console.ReadLine() ?? string.Empty;
         }
 
-        public static void DisplayTilte(string title)
+        public static void DisplayTitle(string title)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
