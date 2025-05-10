@@ -142,5 +142,17 @@ namespace HunterRPG.Managers
 
             UserInterface.DisplayMessage("\nThanks for playing Hunter RPG!");
         }
+
+        private void DisplayActions()
+        {
+            UserInterface.DisplayMessage("\nActions:");
+            UserInterface.DisplayMessage("  1. Move (north, south, east, west)");
+            UserInterface.DisplayMessage("  2. Hunt [animal name]");
+            UserInterface.DisplayMessage("  3. Gather [item name]");
+            UserInterface.DisplayMessage("  4. Rest");
+            UserInterface.DisplayMessage("  5. Eat [item name]");
+            UserInterface.DisplayMessage("  6. Quit");
+            UserInterface.DisplayMessage("\nEnter your action:");
+        }
     }
 }
