@@ -57,6 +57,12 @@ namespace HunterRPG.Models
             UserInterface.DisplayMessage($"You acquired {item.Name}!");
         }
 
+        public void TakeDamage(int damage)
+        {
+            Health = Math.Max(Health - damage, 0);
+            UserInterface.DisplayMessage($"You took {damage} damage. Health: {Health}");
+        }
+
         public void UseEnergy(int amount)
         {
             Energy = Math.Max(Energy - amount, 0);

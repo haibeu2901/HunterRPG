@@ -100,5 +100,47 @@ namespace HunterRPG.Managers
             gameWorld.Add(clearing);
             gameWorld.Add(cave);
         }
+
+        private void GameLoop()
+        {
+            while (isRunning)
+            {
+                // Check game over conditions
+                if (!hunter.IsAlive)
+                {
+                    UserInterface.DisplayMessage("Game Over! You have died.");
+                    isRunning = false;
+                    break;
+                }
+
+                // Display
+                UserInterface.DisplayMessage($"\nDay {day}");
+                hunter.DisplayStatus();
+                hunter.CurrentLocation.DisplayDetails();
+                DisplayActions();
+
+                string action = UserInterface.GetInput().ToLower();
+                ProcessAction(action);
+
+                // Check if there still enough anergy for the day
+                if (hunter.Energy <= 0)
+                {
+                    UserInterface.DisplayMessage("\nYou're too tired to continue. The day is over.");
+                    day++;
+                    hunter.Rest();
+
+                    RespawnAnimals();
+                }
+
+                // Check hunger
+                if (hunter.Hunger >= 100)
+                {
+                    hunter.TakeDamage(5);
+                    UserInterface.DisplayMessage("You're starving! You lose 5 health.");
+                }
+            }
+
+            UserInterface.DisplayMessage("\nThanks for playing Hunter RPG!");
+        }
     }
 }
