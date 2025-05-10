@@ -36,7 +36,7 @@ namespace HunterRPG.Managers
             UserInterface.DisplayMessage("Welcome to Hunter RPG!");
             UserInterface.DisplayMessage("You are a hunter trying to survive in the wilderness.");
 
-            // Create player
+            // Create hunter
             UserInterface.DisplayMessage("Enter your name:");
             string hunterName = UserInterface.GetInput();
             hunter = new Hunter(hunterName);
@@ -44,12 +44,12 @@ namespace HunterRPG.Managers
             // Create world
             InitializeGameWorld();
 
-            // Give player starting items
+            // Give hunter starting items
             hunter.AddItem(new Item("Hunting Knife", ItemType.Weapon, 10));
             hunter.AddItem(new Item("Wooden Bow", ItemType.Weapon, 20));
             hunter.AddItem(new Item("Jerky", ItemType.Food, 15));
 
-            // Set player location
+            // Set hunter location
             hunter.CurrentLocation = gameWorld.Find(location => location.Type == LocationType.Camp);
 
             isRunning = true;
@@ -248,7 +248,7 @@ namespace HunterRPG.Managers
             // Simple combat system
             while (animal.IsAlive && hunter.IsAlive)
             {
-                // Player attacks
+                // hunter attacks
                 int hunterDamage = RandomGenerator.GetRandomNumber(10, 25);
                 animal.TakeDamage(hunterDamage);
 
@@ -277,5 +277,26 @@ namespace HunterRPG.Managers
                 hunter.CurrentLocation.RemoveAnimal(animal);
             }
         }
+
+        private void Gather(string itemName)
+        {
+            var item = hunter.CurrentLocation.Items.FirstOrDefault(i =>
+                i.Name.ToLower() == itemName.ToLower());
+
+            if (item == null)
+            {
+                UserInterface.DisplayMessage($"There is no {itemName} here to gather.");
+                return;
+            }
+
+            // Gathering requires energy
+            hunter.UseEnergy(5);
+            // Add item to inventory
+            hunter.AddItem(item);
+            // Remove item from location
+            hunter.CurrentLocation.RemoveItem(item);
+        }
+
+        
     }
 }
