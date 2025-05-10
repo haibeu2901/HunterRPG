@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using HunterRPG.Enums;
@@ -153,6 +154,65 @@ namespace HunterRPG.Managers
             UserInterface.DisplayMessage("  5. Eat [item name]");
             UserInterface.DisplayMessage("  6. Quit");
             UserInterface.DisplayMessage("\nEnter your action:");
+        }
+
+        private void ProcessAction(string input)
+        {
+            string[] parts = input.Split(' ');
+            string action = parts[0];
+
+            switch (action)
+            {
+                case "north":
+                case "south":
+                case "east":
+                case "west":
+                    Move(action);
+                    break;
+                case "hunt":
+                    if (parts.Length > 1)
+                    {
+                        Hunt(string.Join(" ", parts.Skip(1)));
+                    }
+                    else
+                    {
+                        UserInterface.DisplayMessage("Hunt what? Please specify an animal.");
+                    }
+                    break;
+                case "gather":
+                    if (parts.Length > 1)
+                    {
+                        Gather(string.Join(" ", parts.Skip(1)));
+                    }
+                    else
+                    {
+                        UserInterface.DisplayMessage("Gather what? Please specify an item.");
+                    }
+                    break;
+                case "rest":
+                    hunter.Rest();
+                    break;
+                case "eat":
+                    if (parts.Length > 1)
+                    {
+                        Eat(string.Join(" ", parts.Skip(1)));
+                    }
+                    else
+                    {
+                        UserInterface.DisplayMessage("Eat what? Please specify a food item.");
+                    }
+                    break;
+                case "quit":
+                    UserInterface.DisplayMessage("Are you sure you want to quit? (yes/no)");
+                    if (UserInterface.GetInput().ToLower() == "yes")
+                    {
+                        isRunning = false;
+                    }
+                    break;
+                default:
+                    UserInterface.DisplayMessage("Invalid action. Try again.");
+                    break;
+            }
         }
     }
 }
