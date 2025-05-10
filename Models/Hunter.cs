@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HunterRPG.Enums;
 using HunterRPG.Managers;
 
 namespace HunterRPG.Models
@@ -34,5 +35,21 @@ namespace HunterRPG.Models
             Hunger = Math.Min(Hunger + 15, 100);
             UserInterface.DisplayMessage($"You rested. Health: {Health}, Energy: {Energy}, Hunger: {Hunger}");
         }
+
+        public void Eat(Item food)
+        {
+            if (food.Type == ItemType.Food)
+            {
+                Health = Math.Min(Health + 10, 100);
+                Hunger = Math.Min(Hunger - food.Value, 100);
+                UserInterface.DisplayMessage($"You ate {food.Name}. Health: {Health}, Hunger: {Hunger}");
+                Inventory.Remove(food);
+            }
+            else
+            {
+                UserInterface.DisplayMessage($"You can't eat {food.Name}!");
+            }
+        }
+
     }
 }
