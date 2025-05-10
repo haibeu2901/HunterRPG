@@ -53,6 +53,52 @@ namespace HunterRPG.Managers
             isRunning = true;
         }
 
+        private void InitializeGameWorld()
+        {
+            // Create locations
+            var camp = new Location("Camp", "Your home base. A safe place to rest.", LocationType.Camp);
+            var forest = new Location("Forest", "Dense woods full of wildlife.", LocationType.Forest);
+            var river = new Location("River", "A flowing river with fish and fresh water.", LocationType.River);
+            var clearing = new Location("Clearing", "An open area in the forest.", LocationType.Clearing);
+            var cave = new Location("Cave", "A dark cave in the hillside.", LocationType.Cave);
 
+            // Connect locations
+            camp.AddConnection("north", forest);
+            camp.AddConnection("east", river);
+
+            forest.AddConnection("south", camp);
+            forest.AddConnection("east", clearing);
+            forest.AddConnection("north", cave);
+
+            river.AddConnection("west", camp);
+            river.AddConnection("north", clearing);
+
+            clearing.AddConnection("west", forest);
+            clearing.AddConnection("south", river);
+
+            cave.AddConnection("south", forest);
+
+            // Add animals to locations
+            forest.AddAnimal(new Animal("Deer", AnimalType.Deer, 30, 5));
+            forest.AddAnimal(new Animal("Rabbit", AnimalType.Rabbit, 10, 2));
+
+            clearing.AddAnimal(new Animal("Deer", AnimalType.Deer, 30, 5));
+            clearing.AddAnimal(new Animal("Wolf", AnimalType.Wolf, 40, 15));
+
+            cave.AddAnimal(new Animal("Bear", AnimalType.Bear, 70, 25));
+
+            river.AddAnimal(new Animal("Wolf", AnimalType.Wolf, 40, 15));
+
+            // Add items to locations
+            river.AddItem(new Item("Fishing Rod", ItemType.Tool, 10));
+            clearing.AddItem(new Item("Berries", ItemType.Food, 10));
+
+            // Add locations to world
+            gameWorld.Add(camp);
+            gameWorld.Add(forest);
+            gameWorld.Add(river);
+            gameWorld.Add(clearing);
+            gameWorld.Add(cave);
+        }
     }
 }
